@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 const AdminLayout = () => {
   return (
-    <div className="auth-wrapper">
+    <div className="admin-wrapper">
       <Outlet />
     </div>
   );

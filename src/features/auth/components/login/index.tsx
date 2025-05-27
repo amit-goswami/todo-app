@@ -1,19 +1,23 @@
-import { useTranslation, Trans } from 'react-i18next';
+import { Box } from '@mui/material';
+import MorenButton from '../../../../components/button';
+import ModernInput from '../../../../components/input';
 
 const Login = () => {
-  const { t } = useTranslation();
-
-  const count = 3;
-
   return (
-    <div>
-      <p>{t('title', { name: 'John' })}</p>
-      <p>{t('description.part1')}</p>
-      <p>{t('description.part2')}</p>
-      <Trans i18nKey="userMessagesUnread" count={count}>
-        You have {{ count }} unread message.
-      </Trans>
-    </div>
+    <Box
+      display="flex"
+      sx={{ flexDirection: 'column', width: '400px' }}
+      gap={2}
+    >
+      <ModernInput placeholder="Enter your name" label="Name" />
+      <ModernInput placeholder="Enter your email" label="Email" type="email" />
+      <ModernInput
+        placeholder="Enter your password"
+        label="Password"
+        type="password"
+      />
+      <MorenButton variant="contained">Login</MorenButton>
+    </Box>
   );
 };
 
