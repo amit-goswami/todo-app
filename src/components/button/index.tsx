@@ -12,6 +12,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
   boxShadow: 'none',
   fontSize: '16px',
   width: '100%',
+  height: '36px',
 
   '&:hover': {
     boxShadow: '0 4px 12px rgba(0,0,0,0.1)',

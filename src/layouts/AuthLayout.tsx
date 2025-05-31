@@ -1,6 +1,9 @@
 import { Box } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import Footer from '../components/footer';
+import FloatingPositionedBox from '../components/box';
+import LanguageMode from '../i18n/LanguageMode';
+import ColorMode from '../providers/theme-provider/ColorMode';
 
 const styles = {
   container: {
@@ -34,6 +37,13 @@ const AuthLayout = () => {
         <Outlet />
       </Box>
       <Footer />
+
+      <FloatingPositionedBox position="top-right">
+        <Box sx={{ display: 'flex', gap: 1 }}>
+          <LanguageMode />
+          <ColorMode />
+        </Box>
+      </FloatingPositionedBox>
     </Box>
   );
 };

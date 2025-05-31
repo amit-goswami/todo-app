@@ -84,8 +84,6 @@ const Sidebar = () => {
                 {drawerOpen && <ListItemText primary={text} />}
               </ListItemButton>
             </Tooltip>
-            {/* <LanguageModeSelect />
-            <ColorModeSelect /> */}
           </ListItem>
         ))}
       </List>

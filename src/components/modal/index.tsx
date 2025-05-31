@@ -97,12 +97,24 @@ const GenericModal: React.FC<GenericModalProps> = ({
       {(onSubmit || !hideCancelButton) && (
         <DialogActions>
           {!hideCancelButton && (
-            <MorenButton onClick={onClose} variant="outlined">
+            <MorenButton
+              onClick={onClose}
+              variant="outlined"
+              sx={{
+                maxWidth: '150px',
+              }}
+            >
               {cancelButtonText}
             </MorenButton>
           )}
           {!hideSubmitButton && onSubmit && (
-            <MorenButton onClick={onSubmit} variant="contained">
+            <MorenButton
+              onClick={onSubmit}
+              variant="contained"
+              sx={{
+                maxWidth: '150px',
+              }}
+            >
               {submitButtonText}
             </MorenButton>
           )}
