@@ -9,6 +9,7 @@ const StyledInput = styled((props: TextFieldProps) => (
   width: '100%',
   '& .MuiInputBase-input': {
     padding: '14px',
+    lineHeight: '0',
   },
 
   '& .MuiOutlinedInput-root': {

@@ -8,7 +8,6 @@ const Wrapper = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(0.5),
   borderRadius: 999,
-  boxShadow: theme.shadows[1],
   maxWidth: 120,
   minWidth: 120,
 }));
