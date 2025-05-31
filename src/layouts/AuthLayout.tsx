@@ -10,7 +10,11 @@ const AuthLayout = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: '100vh',
+        height: '100vh',
+        maxHeight: '100vh',
+        overflow: 'hidden', // Prevents any overflow
+        width: '100%',
+        maxWidth: '100vw',
         backgroundColor: theme => theme.palette.background.default,
       }}
     >

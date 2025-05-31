@@ -1,29 +1,33 @@
 import { Outlet } from 'react-router-dom';
-import { useState } from 'react';
 import { Box, Toolbar } from '@mui/material';
+import { SidebarProvider } from '../components/sidebar/provider';
 import Header from '../components/header';
 import Sidebar from '../components/sidebar';
 
 const MainLayout = () => {
-  const [drawerOpen, setDrawerOpen] = useState(true);
-
-  const toggleDrawer = () => {
-    setDrawerOpen(prev => !prev);
-  };
-
-  const closeDrawer = () => {
-    setDrawerOpen(false);
-  };
-
   return (
-    <Box sx={{ display: 'flex' }}>
-      <Header toggleDrawer={toggleDrawer} />
-      <Sidebar open={drawerOpen} onClose={closeDrawer} />
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <Toolbar />
-        <Outlet />
+    <SidebarProvider>
+      <Box sx={{ display: 'flex' }}>
+        <Header />
+        <Sidebar />
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            width: '100%',
+            height: '100vh',
+            maxWidth: '100vw',
+            overflowX: 'hidden', // Prevent horizontal scroll
+            maxHeight: '100vh', // Prevent vertical overflow
+            overflowY: 'auto', // Allow vertical scrolling
+          }}
+        >
+          <Toolbar />
+          <Outlet />
+        </Box>
       </Box>
-    </Box>
+    </SidebarProvider>
   );
 };
 

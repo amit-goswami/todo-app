@@ -11,18 +11,16 @@ import {
   MenuItem,
   Button,
 } from '@mui/material';
+import { useSidebarContext } from '../sidebar/provider';
 import MenuIcon from '@mui/icons-material/Menu';
 import LanguageModeSelect from '../../i18n/LanguageModeSelect';
 import ColorModeSelect from '../../providers/theme-provider/ColorModeSelect';
 
 const navItems = ['Home', 'Features', 'Pricing', 'Contact'];
 
-interface IHeaderProps {
-  toggleDrawer: () => void;
-}
-
-const Header: React.FC<IHeaderProps> = ({ toggleDrawer }) => {
+const Header = () => {
   const theme = useTheme();
+  const { toggleDrawer } = useSidebarContext();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Divider,
   Drawer,
@@ -8,55 +7,84 @@ import {
   ListItemIcon,
   ListItemText,
   Toolbar,
+  Tooltip,
 } from '@mui/material';
+import { useSidebarContext } from './provider';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
 const DRAWER_WIDTH = 240;
+const MINI_DRAWER_WIDTH = 70;
 
-interface ISidebarProps {
-  open: boolean;
-  onClose: () => void;
-}
+const Sidebar = () => {
+  const { drawerOpen } = useSidebarContext();
 
-const Sidebar: React.FC<ISidebarProps> = ({ open, onClose }) => {
   return (
     <Drawer
       variant="permanent"
       sx={{
-        width: DRAWER_WIDTH,
+        width: drawerOpen ? DRAWER_WIDTH : MINI_DRAWER_WIDTH,
         flexShrink: 0,
+        whiteSpace: 'nowrap',
+        transition: 'width 0.3s',
         [`& .MuiDrawer-paper`]: {
-          width: DRAWER_WIDTH,
-          boxSizing: 'border-box',
+          width: drawerOpen ? DRAWER_WIDTH : MINI_DRAWER_WIDTH,
+          transition: 'width 0.3s',
+          overflowX: 'hidden',
         },
       }}
-      open={open}
-      onClose={onClose}
     >
       <Toolbar />
       <List>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
+          <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+            <Tooltip title={!drawerOpen ? text : ''} placement="right">
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: drawerOpen ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: drawerOpen ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                {drawerOpen && <ListItemText primary={text} />}
+              </ListItemButton>
+            </Tooltip>
           </ListItem>
         ))}
       </List>
       <Divider />
       <List>
         {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
+          <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+            <Tooltip title={!drawerOpen ? text : ''} placement="right">
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: drawerOpen ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: drawerOpen ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                {drawerOpen && <ListItemText primary={text} />}
+              </ListItemButton>
+            </Tooltip>
           </ListItem>
         ))}
       </List>
