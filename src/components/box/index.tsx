@@ -1,7 +1,13 @@
 import React, { type ReactNode } from 'react';
 import { Box, type SxProps, type Theme } from '@mui/material';
 
-type Position = 'top-right' | 'top-left' | 'top-center';
+type Position =
+  | 'top-right'
+  | 'top-left'
+  | 'top-center'
+  | 'bottom-right'
+  | 'bottom-left'
+  | 'bottom-center';
 
 interface FloatingPositionedBoxProps {
   position?: Position;
@@ -22,6 +28,22 @@ const positionStyles: Record<Position, SxProps<Theme>> = {
   'top-center': {
     position: 'fixed',
     top: 16,
+    left: '50%',
+    transform: 'translateX(-50%)',
+  },
+  'bottom-right': {
+    position: 'fixed',
+    bottom: 16,
+    right: 16,
+  },
+  'bottom-left': {
+    position: 'fixed',
+    bottom: 16,
+    left: 16,
+  },
+  'bottom-center': {
+    position: 'fixed',
+    bottom: 16,
     left: '50%',
     transform: 'translateX(-50%)',
   },
