@@ -27,13 +27,6 @@ export const SidebarProvider: React.FC<{ children: React.ReactNode }> = ({
     cookies.drawerOpen === undefined ? true : cookies.drawerOpen === 'true'
   );
 
-  useEffect(() => {
-    // Keep cookie in sync if changed externally
-    if (cookies.drawerOpen && String(drawerOpen) !== cookies.drawerOpen) {
-      setDrawerOpen(cookies.drawerOpen === 'true');
-    }
-  }, [cookies.drawerOpen]);
-
   const toggleDrawer = () => {
     const newState = !drawerOpen;
     setDrawerOpen(newState);
@@ -47,7 +40,7 @@ export const SidebarProvider: React.FC<{ children: React.ReactNode }> = ({
     setDrawerOpen(false);
     setCookie('drawerOpen', 'false', {
       path: '/',
-      maxAge: 60 * 60 * 24 * 365,
+      maxAge: 60 * 60 * 24 * 365, // 1 year
     });
   };
 
