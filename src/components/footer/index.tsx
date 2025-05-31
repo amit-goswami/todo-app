@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material';
+import { getCurrentYear } from '../../utils/functions';
 
 const Footer = () => {
   return (
@@ -14,7 +15,7 @@ const Footer = () => {
       }}
     >
       <Typography variant="body2" color="textSecondary">
-        © 2025 Your Company. All rights reserved.
+        © {getCurrentYear()} IRB. All rights reserved.
       </Typography>
     </Box>
   );
