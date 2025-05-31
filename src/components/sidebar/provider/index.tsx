@@ -1,5 +1,10 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useCookies } from 'react-cookie';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from 'react';
 
 interface SidebarContextProps {
   drawerOpen: boolean;
@@ -19,30 +24,34 @@ export const useSidebarContext = () => {
   return context;
 };
 
+const LOCAL_STORAGE_KEY = 'drawerOpen';
+
 export const SidebarProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [cookies, setCookie] = useCookies(['drawerOpen']);
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(
-    cookies.drawerOpen === undefined ? true : cookies.drawerOpen === 'true'
-  );
+  const [drawerOpen, setDrawerOpen] = useState<boolean | null>(null);
 
-  const toggleDrawer = () => {
-    const newState = !drawerOpen;
-    setDrawerOpen(newState);
-    setCookie('drawerOpen', String(newState), {
-      path: '/',
-      maxAge: 60 * 60 * 24 * 365,
-    });
-  };
+  useEffect(() => {
+    const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+    setDrawerOpen(stored === 'false' ? false : true);
+  }, []);
 
-  const closeDrawer = () => {
-    setDrawerOpen(false);
-    setCookie('drawerOpen', 'false', {
-      path: '/',
-      maxAge: 60 * 60 * 24 * 365, // 1 year
-    });
-  };
+  const persistDrawerState = useCallback((value: boolean) => {
+    setDrawerOpen(value);
+    localStorage.setItem(LOCAL_STORAGE_KEY, String(value));
+  }, []);
+
+  const toggleDrawer = useCallback(() => {
+    if (drawerOpen !== null) {
+      persistDrawerState(!drawerOpen);
+    }
+  }, [drawerOpen, persistDrawerState]);
+
+  const closeDrawer = useCallback(() => {
+    persistDrawerState(false);
+  }, [persistDrawerState]);
+
+  if (drawerOpen === null) return null; // or a spinner
 
   return (
     <SidebarContext.Provider value={{ drawerOpen, toggleDrawer, closeDrawer }}>
