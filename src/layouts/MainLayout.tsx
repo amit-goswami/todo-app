@@ -28,6 +28,7 @@ const MainLayout = () => {
           component="main"
           sx={{
             ...styles.container,
+            backgroundColor: theme => theme.palette.background.paper,
           }}
         >
           <Toolbar />

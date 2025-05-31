@@ -31,7 +31,9 @@ const NonProtectedBoundary = () => {
         <Route path={ROUTES.HOME} element={<HomePage />} />
       </Route>
 
-      <Route path={ROUTES.NOT_FOUND} element={<PageNotFound />} />
+      <Route element={<AuthLayout />}>
+        <Route path={ROUTES.NOT_FOUND} element={<PageNotFound />} />
+      </Route>
 
       {/* Add more non-protected routes here as needed */}
     </Routes>

@@ -30,6 +30,7 @@ const Sidebar = () => {
           transition: 'width 0.3s',
           overflowX: 'hidden',
         },
+        backgroundColor: theme => theme.palette.background.paper,
       }}
     >
       <Toolbar />
@@ -83,6 +84,8 @@ const Sidebar = () => {
                 {drawerOpen && <ListItemText primary={text} />}
               </ListItemButton>
             </Tooltip>
+            {/* <LanguageModeSelect />
+            <ColorModeSelect /> */}
           </ListItem>
         ))}
       </List>

@@ -13,8 +13,6 @@ import {
 } from '@mui/material';
 import { useSidebarContext } from '../sidebar/provider';
 import MenuIcon from '@mui/icons-material/Menu';
-import LanguageModeSelect from '../../i18n/LanguageModeSelect';
-import ColorModeSelect from '../../providers/theme-provider/ColorModeSelect';
 
 const navItems = ['Home', 'Features', 'Pricing', 'Contact'];
 
@@ -76,8 +74,6 @@ const Header = () => {
                 {item}
               </Button>
             ))}
-            <LanguageModeSelect />
-            <ColorModeSelect />
           </Box>
         )}
       </Toolbar>

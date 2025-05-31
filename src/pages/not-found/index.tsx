@@ -1,9 +1,44 @@
+import { Box, Typography, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../features/auth/auth.interface';
+import PageNotFoundImage from '../../assets/404/404.jpg';
+
 const PageNotFound = () => {
+  const navigate = useNavigate();
+
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <h1 className="text-6xl font-bold text-red-600">404</h1>
-      <p className="mt-4 text-xl text-gray-700">Page Not Found</p>
-    </div>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        px: 2,
+      }}
+    >
+      {/* SVG Illustration */}
+      <Box
+        component="img"
+        src={PageNotFoundImage}
+        alt="404 Not Found"
+        sx={{ maxWidth: 400, width: '100%', mb: 4 }}
+      />
+
+      {/* Message */}
+      <Typography variant="h6" color="text.secondary">
+        Page Not Found
+      </Typography>
+
+      {/* Button to go back */}
+      <Button
+        variant="contained"
+        sx={{ mt: 4 }}
+        onClick={() => navigate(ROUTES.HOME)}
+      >
+        Go to Home
+      </Button>
+    </Box>
   );
 };
 

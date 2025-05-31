@@ -1,17 +1,19 @@
 import { Box } from '@mui/material';
 import { Outlet } from 'react-router-dom';
+import Footer from '../components/footer';
 
 const styles = {
   container: {
+    flex: '1 0 auto',
     display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '100vh',
-    maxHeight: '100vh',
-    overflow: 'hidden', // Prevents any overflow
-    width: '100%',
-    maxWidth: '100vw',
+  },
+  main: {
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
   },
 };
 
@@ -20,11 +22,18 @@ const AuthLayout = () => {
     <Box
       component="main"
       sx={{
-        ...styles.container,
-        backgroundColor: theme => theme.palette.background.default,
+        ...styles.main,
+        backgroundColor: theme => theme.palette.background.paper,
       }}
     >
-      <Outlet />
+      <Box
+        sx={{
+          ...styles.container,
+        }}
+      >
+        <Outlet />
+      </Box>
+      <Footer />
     </Box>
   );
 };
