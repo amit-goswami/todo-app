@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Constants from '../utils/constants';
+import { LOCAL_STORAGE_KEYS } from '../utils/constants';
 
 const TIMEOUT = 5000;
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -11,9 +11,7 @@ const _axios = axios.create({
 
 _axios.interceptors.request.use(
   config => {
-    const token = window.localStorage.getItem(
-      Constants.LOCAL_STORAGE_KEYS.TOKEN
-    );
+    const token = window.localStorage.getItem(LOCAL_STORAGE_KEYS.TOKEN);
 
     if (token) {
       config.headers['Authorization'] = `Token ${token}`;

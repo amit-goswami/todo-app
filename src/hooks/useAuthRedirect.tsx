@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../features/auth/auth.interface';
-import Constants from '../utils/constants';
+import { LOCAL_STORAGE_KEYS } from '../utils/constants';
 
 /**
  * Redirects the user based on authentication status.
@@ -11,7 +11,7 @@ const useAuthRedirect = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem(Constants.LOCAL_STORAGE_KEYS.TOKEN);
+    const token = localStorage.getItem(LOCAL_STORAGE_KEYS.TOKEN);
     if (token) {
       navigate(ROUTES.HOME, { replace: true });
     } else {

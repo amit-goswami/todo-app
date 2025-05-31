@@ -10,11 +10,9 @@ import {
   Tooltip,
 } from '@mui/material';
 import { useSidebarContext } from './provider';
+import { DRAWER_WIDTH, MINI_DRAWER_WIDTH } from '../../utils/constants';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-
-const DRAWER_WIDTH = 240;
-const MINI_DRAWER_WIDTH = 70;
 
 const Sidebar = () => {
   const { drawerOpen } = useSidebarContext();

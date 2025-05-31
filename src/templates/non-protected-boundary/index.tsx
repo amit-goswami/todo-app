@@ -15,7 +15,7 @@ import MainLayout from '../../layouts/MainLayout';
 const NonProtectedBoundary = () => {
   return (
     <Routes>
-      <Route element={<MainLayout />}>
+      <Route element={<AuthLayout />}>
         <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       </Route>
 

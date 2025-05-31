@@ -1,9 +1,7 @@
-const LOCAL_STORAGE_KEYS = {
+export const LOCAL_STORAGE_KEYS = {
   TOKEN: 'token',
+  SIDEBAR_OPEN: 'sidebarOpen',
 };
 
-const Constants = {
-  LOCAL_STORAGE_KEYS,
-};
-
-export default Constants;
+export const DRAWER_WIDTH = 240;
+export const MINI_DRAWER_WIDTH = 70;
