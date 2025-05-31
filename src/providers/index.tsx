@@ -7,6 +7,7 @@ import { ThemeProvider } from './theme-provider/ThemeContext';
 import { TanstackProvider } from './tanstack-provider';
 import { CookiesProvider } from 'react-cookie';
 import { BrowserRouter } from 'react-router-dom';
+import { ToastProvider } from './toast-provider';
 
 interface IAppProviderProps {
   children: ReactNode;
@@ -20,7 +21,9 @@ const AppProvider: React.FC<IAppProviderProps> = ({ children }) => {
           <PersistGate loading={null} persistor={persistor}>
             <TanstackProvider>
               <ThemeProvider>
-                <BrowserRouter>{children}</BrowserRouter>
+                <ToastProvider>
+                  <BrowserRouter>{children}</BrowserRouter>
+                </ToastProvider>
               </ThemeProvider>
             </TanstackProvider>
           </PersistGate>

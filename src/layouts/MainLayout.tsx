@@ -4,6 +4,20 @@ import { SidebarProvider } from '../components/sidebar/provider';
 import Header from '../components/header';
 import Sidebar from '../components/sidebar';
 
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh',
+    maxHeight: '100vh',
+    overflow: 'hidden', // Prevents any overflow
+    width: '100%',
+    maxWidth: '100vw',
+  },
+};
+
 const MainLayout = () => {
   return (
     <SidebarProvider>
@@ -13,14 +27,7 @@ const MainLayout = () => {
         <Box
           component="main"
           sx={{
-            flexGrow: 1,
-            p: 3,
-            width: '100%',
-            height: '100vh',
-            maxWidth: '100vw',
-            overflowX: 'hidden', // Prevent horizontal scroll
-            maxHeight: '100vh', // Prevent vertical overflow
-            overflowY: 'auto', // Allow vertical scrolling
+            ...styles.container,
           }}
         >
           <Toolbar />
