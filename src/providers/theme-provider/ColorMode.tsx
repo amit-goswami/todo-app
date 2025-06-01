@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useThemeContext } from './ThemeContext';
+import { useThemeContext, type ThemeName } from './ThemeContext';
 import {
   IconButton,
   List,
@@ -24,7 +24,7 @@ export default function ColorMode() {
   const { themeName, setThemeName } = useThemeContext();
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleSelect = (value: 'light' | 'dark' | 'green') => {
+  const handleSelect = (value: ThemeName) => {
     setThemeName(value);
     setIsOpen(false);
   };
@@ -48,7 +48,11 @@ export default function ColorMode() {
         hideSubmitButton
         cancelButtonText="Close"
       >
-        <List>
+        <List
+          sx={{
+            minHeight: '400px',
+          }}
+        >
           <ListItemButton
             selected={themeName === 'light'}
             onClick={() => handleSelect('light')}
@@ -70,7 +74,39 @@ export default function ColorMode() {
             onClick={() => handleSelect('green')}
             sx={styles.listItemButton}
           >
-            <ListItemText primary="🌿 Green" />
+            <ListItemText primary="🟢 Green" />
+          </ListItemButton>
+
+          <ListItemButton
+            selected={themeName === 'red'}
+            onClick={() => handleSelect('red')}
+            sx={styles.listItemButton}
+          >
+            <ListItemText primary="🔴 Red" />
+          </ListItemButton>
+
+          <ListItemButton
+            selected={themeName === 'blue'}
+            onClick={() => handleSelect('blue')}
+            sx={styles.listItemButton}
+          >
+            <ListItemText primary="🔵 Blue" />
+          </ListItemButton>
+
+          <ListItemButton
+            selected={themeName === 'yellow'}
+            onClick={() => handleSelect('yellow')}
+            sx={styles.listItemButton}
+          >
+            <ListItemText primary="🟡 Yellow" />
+          </ListItemButton>
+
+          <ListItemButton
+            selected={themeName === 'violet'}
+            onClick={() => handleSelect('violet')}
+            sx={styles.listItemButton}
+          >
+            <ListItemText primary="🟣 Violet" />
           </ListItemButton>
         </List>
       </GenericModal>

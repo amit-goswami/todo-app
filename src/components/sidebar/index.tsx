@@ -1,4 +1,5 @@
 import {
+  Box,
   Divider,
   Drawer,
   List,
@@ -13,6 +14,10 @@ import { useSidebarContext } from './provider';
 import { DRAWER_WIDTH, MINI_DRAWER_WIDTH } from '../../utils/constants';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import FloatingPositionedBox from '../box';
+import LanguageMode from '../../i18n/LanguageMode';
+import ColorMode from '../../providers/theme-provider/ColorMode';
+import LogoutFeature from '../../features/auth/components/logout';
 
 const Sidebar = () => {
   const { drawerOpen } = useSidebarContext();
@@ -87,6 +92,22 @@ const Sidebar = () => {
           </ListItem>
         ))}
       </List>
+
+      <FloatingPositionedBox position="bottom-left">
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: drawerOpen ? 'row' : 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 1,
+          }}
+        >
+          <LanguageMode />
+          <ColorMode />
+          <LogoutFeature />
+        </Box>
+      </FloatingPositionedBox>
     </Drawer>
   );
 };

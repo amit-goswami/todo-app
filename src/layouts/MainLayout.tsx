@@ -3,9 +3,6 @@ import { Box, Toolbar } from '@mui/material';
 import { SidebarProvider } from '../components/sidebar/provider';
 import Header from '../components/header';
 import Sidebar from '../components/sidebar';
-import FloatingPositionedBox from '../components/box';
-import LanguageMode from '../i18n/LanguageMode';
-import ColorMode from '../providers/theme-provider/ColorMode';
 
 const styles = {
   container: {
@@ -38,13 +35,6 @@ const MainLayout = () => {
           <Outlet />
         </Box>
       </Box>
-
-      <FloatingPositionedBox position="bottom-right">
-        <Box sx={{ display: 'flex', gap: 1 }}>
-          <LanguageMode />
-          <ColorMode />
-        </Box>
-      </FloatingPositionedBox>
     </SidebarProvider>
   );
 };
