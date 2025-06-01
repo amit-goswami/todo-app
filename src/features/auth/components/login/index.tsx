@@ -1,20 +1,20 @@
+import * as Yup from 'yup';
 import { Box } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
-
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../auth.interface.ts';
 import { useToast } from '../../../../providers/toast-provider';
 import MorenButton from '../../../../components/button';
 import ModernInput from '../../../../components/input';
+import MorenCard from '../../../../components/card.tsx';
 
 type FormValues = {
-  name: string;
   email: string;
   password: string;
 };
 
 const schema = Yup.object({
-  name: Yup.string().required('Name is required'),
   email: Yup.string().email('Invalid email').required('Email is required'),
   password: Yup.string()
     .min(6, 'Password must be at least 6 characters')
@@ -22,6 +22,7 @@ const schema = Yup.object({
 });
 
 const Login = () => {
+  const naivgate = useNavigate();
   const { showToast } = useToast();
 
   const {
@@ -37,42 +38,60 @@ const Login = () => {
     showToast('Successfully logged in!', 'success');
   };
 
+  const handleNavigation = (path: string) => {
+    naivgate(path);
+  };
+
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit(onSubmit)}
-      display="flex"
-      flexDirection="column"
-      gap={2}
-      width="400px"
+    <MorenCard
+      title="Login"
+      description="Enter your credentials to continue"
+      maxWidth={480}
     >
-      <ModernInput
-        label="Name"
-        placeholder="Enter your name"
-        {...register('name')}
-        error={!!errors.name}
-        helperText={errors.name?.message}
-      />
-      <ModernInput
-        label="Email"
-        placeholder="Enter your email"
-        type="email"
-        {...register('email')}
-        error={!!errors.email}
-        helperText={errors.email?.message}
-      />
-      <ModernInput
-        label="Password"
-        placeholder="Enter your password"
-        type="password"
-        {...register('password')}
-        error={!!errors.password}
-        helperText={errors.password?.message}
-      />
-      <MorenButton type="submit" variant="contained">
-        Login
-      </MorenButton>
-    </Box>
+      <Box
+        component="form"
+        onSubmit={handleSubmit(onSubmit)}
+        display="flex"
+        flexDirection="column"
+        gap={2}
+      >
+        <ModernInput
+          label="Email"
+          placeholder="Enter your email"
+          type="email"
+          {...register('email')}
+          error={!!errors.email}
+          helperText={errors.email?.message}
+        />
+        <ModernInput
+          label="Password"
+          placeholder="Enter your password"
+          type="password"
+          {...register('password')}
+          error={!!errors.password}
+          helperText={errors.password?.message}
+        />
+        <MorenButton type="submit" variant="contained">
+          Login
+        </MorenButton>
+      </Box>
+
+      <Box mt={2} textAlign="center" display="flex" flexDirection="row" gap={1}>
+        <MorenButton
+          variant="text"
+          onClick={() => handleNavigation(ROUTES.REGISTER)}
+        >
+          Not a member? Sign Up
+        </MorenButton>
+
+        <MorenButton
+          variant="text"
+          onClick={() => handleNavigation(ROUTES.FORGOT_PASSWORD)}
+        >
+          Forgot Password?
+        </MorenButton>
+      </Box>
+    </MorenCard>
   );
 };
 
