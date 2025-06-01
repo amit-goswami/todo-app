@@ -39,6 +39,15 @@ const authSlice = createSlice({
         state.user = { ...state.user, ...action.payload };
       }
     },
+    purge: state => {
+      state.user = null;
+      state.token = null;
+      state.isAuthenticated = false;
+      state.loading = false;
+      state.allowedRoutes = null;
+      // Clear the local storage or any other persistent storage if needed
+      localStorage.clear();
+    },
   },
 });
 
