@@ -1,9 +1,8 @@
 import Home from '../../features/home';
-import useAuthRedirect from '../../hooks/useAuthRedirect';
+import withAuthGuard from '../../middlewares/withAuthGuard';
 
 const HomePage = () => {
-  useAuthRedirect();
   return <Home />;
 };
 
-export default HomePage;
+export default withAuthGuard(HomePage);

@@ -18,6 +18,7 @@ import FloatingPositionedBox from '../box';
 import LanguageMode from '../../i18n/LanguageMode';
 import ColorMode from '../../providers/theme-provider/ColorMode';
 import LogoutFeature from '../../features/auth/components/logout';
+import withAuthGuard from '../../middlewares/withAuthGuard';
 
 const Sidebar = () => {
   const { drawerOpen } = useSidebarContext();
@@ -112,4 +113,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default withAuthGuard(Sidebar);

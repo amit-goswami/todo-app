@@ -1,10 +1,13 @@
 import { Box, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../features/auth/auth.interface';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../store';
 import PageNotFoundImage from '../../assets/404/404.jpg';
 
 const PageNotFound = () => {
   const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
 
   return (
     <Box
@@ -34,9 +37,9 @@ const PageNotFound = () => {
       <Button
         variant="contained"
         sx={{ mt: 4 }}
-        onClick={() => navigate(ROUTES.HOME)}
+        onClick={() => navigate(isAuthenticated ? ROUTES.HOME : ROUTES.LOGIN)}
       >
-        Go to Home
+        {isAuthenticated ? 'Go to Home' : 'Go to Login'}
       </Button>
     </Box>
   );

@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import { useSidebarContext } from '../sidebar/provider';
 import MenuIcon from '@mui/icons-material/Menu';
+import withAuthGuard from '../../middlewares/withAuthGuard';
 
 const navItems = ['Home', 'Features', 'Pricing', 'Contact'];
 
@@ -81,4 +82,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default withAuthGuard(Header);
