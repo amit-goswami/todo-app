@@ -45,8 +45,6 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.loading = false;
       state.allowedRoutes = null;
-      // Clear the local storage or any other persistent storage if needed
-      localStorage.clear();
     },
   },
 });
