@@ -1,10 +1,7 @@
+import Dashboard from '../../features/dashboard';
+
 const DashboardPage = () => {
-  return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>Welcome to the dashboard!</p>
-    </div>
-  );
+  return <Dashboard />;
 };
 
 export default DashboardPage;
