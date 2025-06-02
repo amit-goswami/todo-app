@@ -1,3 +1,5 @@
+import { LOCAL_STORAGE_KEYS } from './constants';
+
 const getCurrentYear = (): number => {
   return new Date().getFullYear();
 };
@@ -21,10 +23,25 @@ const purgeLocalStorage = (): void => {
   localStorage.clear();
 };
 
+const getLocalStorageItem = (
+  key: (typeof LOCAL_STORAGE_KEYS)[keyof typeof LOCAL_STORAGE_KEYS]
+): string | null => {
+  return localStorage.getItem(key);
+};
+
+const setLocalStorageItem = (
+  key: (typeof LOCAL_STORAGE_KEYS)[keyof typeof LOCAL_STORAGE_KEYS],
+  value: string
+): void => {
+  localStorage.setItem(key, value);
+};
+
 export {
   getCurrentYear,
   getCurrentMonth,
   getCurrentDay,
   getCurrentDate,
   purgeLocalStorage,
+  getLocalStorageItem,
+  setLocalStorageItem,
 };

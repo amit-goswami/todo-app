@@ -6,6 +6,7 @@ import React, {
   useCallback,
 } from 'react';
 import { LOCAL_STORAGE_KEYS } from '../../../utils/constants';
+import { getLocalStorageItem } from '../../../utils/functions';
 
 interface SidebarContextProps {
   drawerOpen: boolean;
@@ -31,7 +32,7 @@ export const SidebarProvider: React.FC<{ children: React.ReactNode }> = ({
   const [drawerOpen, setDrawerOpen] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const stored = localStorage.getItem(LOCAL_STORAGE_KEYS.SIDEBAR_OPEN);
+    const stored = getLocalStorageItem(LOCAL_STORAGE_KEYS.SIDEBAR_OPEN);
     setDrawerOpen(stored === 'false' ? false : true);
   }, []);
 

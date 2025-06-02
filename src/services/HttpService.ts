@@ -1,5 +1,9 @@
 import axios from 'axios';
 import { LOCAL_STORAGE_KEYS } from '../utils/constants';
+import { getLocalStorageItem, purgeLocalStorage } from '../utils/functions';
+import { persistor } from '../store';
+import { get } from 'lodash';
+import { ROUTES } from '../features/auth/auth.interface';
 
 const TIMEOUT = 5000;
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -11,7 +15,7 @@ const _axios = axios.create({
 
 _axios.interceptors.request.use(
   config => {
-    const token = window.localStorage.getItem(LOCAL_STORAGE_KEYS.TOKEN);
+    const token = getLocalStorageItem(LOCAL_STORAGE_KEYS.TOKEN);
 
     if (token) {
       config.headers['Authorization'] = `Token ${token}`;
@@ -28,6 +32,14 @@ _axios.interceptors.response.use(
     return response;
   },
   error => {
+    const status = get(error, ['response', 'status'], null);
+    const message = get(error, ['response', 'data', 'message'], null);
+    if (status === 404 && message === 'Invalid or expired token.') {
+      persistor.flush();
+      purgeLocalStorage();
+      window.location.replace(ROUTES.LOGIN);
+    }
+
     return Promise.reject(error);
   }
 );
