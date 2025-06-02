@@ -17,4 +17,14 @@ const getCurrentDate = (): string => {
   return `${year}-${month}-${day}`;
 };
 
-export { getCurrentYear, getCurrentMonth, getCurrentDay, getCurrentDate };
+const purgeLocalStorage = (): void => {
+  localStorage.clear();
+};
+
+export {
+  getCurrentYear,
+  getCurrentMonth,
+  getCurrentDay,
+  getCurrentDate,
+  purgeLocalStorage,
+};

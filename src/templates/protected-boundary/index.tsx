@@ -1,11 +1,8 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { ROUTES, type IAuthState } from '../../features/auth/auth.interface';
+import { type IAuthState } from '../../features/auth/auth.interface';
 import { COMPONENT_MAP, LAYOUT_MAP } from './mapping';
 import PageNotFound from '../../pages/not-found';
-import MainLayout from '../../layouts/MainLayout';
-import HomePage from '../../pages/home';
-import AuthLayout from '../../layouts/AuthLayout';
 
 interface IProtectedBoundaryProps {
   allowedRoutes: IAuthState['allowedRoutes'];
@@ -18,28 +15,14 @@ const ProtectedBoundary = ({ allowedRoutes = [] }: IProtectedBoundaryProps) => {
       {allowedRoutes &&
         allowedRoutes.map(({ path, component, layout }, i) => {
           const Layout = LAYOUT_MAP[layout] || React.Fragment;
+          const Component = COMPONENT_MAP[component] || PageNotFound;
 
           return (
             <Route key={i} element={<Layout />}>
-              <Route
-                path={path}
-                element={React.createElement(
-                  COMPONENT_MAP[component] || (() => <PageNotFound />)
-                )}
-              />
+              <Route path={path} element={<Component />} />
             </Route>
           );
         })}
-
-      <Route element={<MainLayout />}>
-        <Route path={ROUTES.HOME} element={<HomePage />} />
-      </Route>
-
-      <Route element={<AuthLayout />}>
-        <Route path={ROUTES.NOT_FOUND} element={<PageNotFound />} />
-      </Route>
-
-      {/* Add more non-protected routes here as needed */}
     </Routes>
   );
 };

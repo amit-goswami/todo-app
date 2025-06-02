@@ -1,41 +1,17 @@
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { ROUTES } from '../../features/auth/auth.interface';
-
-// Pages
-import LoginPage from '../../pages/login';
-import RegisterPage from '../../pages/register';
-import ForgotPasswordPage from '../../pages/forgot-password';
-import PageNotFound from '../../pages/not-found';
-import HomePage from '../../pages/home';
-
-// Layouts
-import AuthLayout from '../../layouts/AuthLayout';
-import MainLayout from '../../layouts/MainLayout';
+import { PUBLIC_ROUTES } from '../protected-boundary/mapping';
 
 const NonProtectedBoundary = () => {
   return (
     <Routes>
-      <Route element={<MainLayout />}>
-        <Route path={ROUTES.HOME} element={<HomePage />} />
-      </Route>
-
-      <Route element={<AuthLayout />}>
-        <Route path={ROUTES.LOGIN} element={<LoginPage />} />
-      </Route>
-
-      <Route element={<AuthLayout />}>
-        <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
-      </Route>
-
-      <Route element={<AuthLayout />}>
-        <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />
-      </Route>
-
-      <Route element={<AuthLayout />}>
-        <Route path={ROUTES.NOT_FOUND} element={<PageNotFound />} />
-      </Route>
-
-      {/* Add more non-protected routes here as needed */}
+      {PUBLIC_ROUTES.map(({ path, component, layout: Layout }, i) => {
+        return (
+          <Route key={i} element={<Layout />}>
+            <Route path={path} element={React.createElement(component)} />
+          </Route>
+        );
+      })}
     </Routes>
   );
 };
