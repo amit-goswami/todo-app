@@ -33,7 +33,7 @@ const DynamicTabs: React.FC<DynamicTabsProps> = ({
       sx={{
         width: '100%',
         height: '100%',
-        backgroundColor: 'background.default',
+        backgroundColor: theme => theme.palette.background.paper,
       }}
     >
       <Tabs value={currentTab} onChange={handleChange}>

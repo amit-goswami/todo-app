@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import {
   DataGrid,
   type GridColDef,
@@ -25,26 +26,32 @@ export function GenericTable<T extends { id: string | number }>({
   loading = false,
 }: GenericTableProps<T>) {
   return (
-    <DataGrid
-      rows={rows}
-      columns={columns}
-      getRowId={row => row[rowIdKey] as string | number}
-      pageSizeOptions={[5, 10, 25, 50, 100]}
-      paginationModel={paginationModel}
-      onPaginationModelChange={onPaginationModelChange}
-      pagination
-      loading={loading}
-      autoHeight
-      onRowClick={params => onRowClick?.(params.row)}
+    <Box
       sx={{
         width: '100%',
         height: '100%',
-        padding: 2,
-        border: 'none',
-        boxShadow: 1,
-        borderRadius: 2,
-        backgroundColor: 'background.paper',
+        maxHeight: 'calc(100vh - 200px)', // Adjust based on your layout
+        minHeight: 'calc(100vh - 200px)', // Adjust based on your layout
+        overflow: 'scroll',
       }}
-    />
+    >
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        getRowId={row => row[rowIdKey] as string | number}
+        pageSizeOptions={[5, 10, 25, 50, 100]}
+        paginationModel={paginationModel}
+        onPaginationModelChange={onPaginationModelChange}
+        pagination
+        loading={loading}
+        autoHeight
+        onRowClick={params => onRowClick?.(params.row)}
+        sx={{
+          backgroundColor: 'background.paper',
+          maxHeight: 'calc(100vh - 200px)', // Adjust based on your layout
+          minHeight: 'calc(100vh - 200px)', // Adjust based on your layout
+        }}
+      />
+    </Box>
   );
 }
