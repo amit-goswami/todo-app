@@ -43,3 +43,17 @@ export interface IAuthState {
   loading: boolean;
   allowedRoutes: IUserRoute[] | null;
 }
+
+// Login payload and response types
+export interface ILoginPayload {
+  email: string;
+  password: string;
+}
+
+export interface ILoginResponse {
+  token: string | null;
+  user: IUser | null;
+  allowedRoutes: IUserRoute[] | null;
+  success: boolean;
+  message: string;
+}

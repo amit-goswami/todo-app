@@ -1,13 +1,16 @@
 import * as Yup from 'yup';
+import type { RootState } from '../../../../store/index.ts';
 import { Box } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../auth.interface.ts';
+import { useSelector } from 'react-redux';
 import { useToast } from '../../../../providers/toast-provider';
 import MorenButton from '../../../../components/button';
 import ModernInput from '../../../../components/input';
 import MorenCard from '../../../../components/card.tsx';
+import AuthService from '../../auth.service.ts';
 
 type FormValues = {
   email: string;
@@ -25,6 +28,8 @@ const Login = () => {
   const naivgate = useNavigate();
   const { showToast } = useToast();
 
+  const { loading } = useSelector((state: RootState) => state.auth);
+
   const {
     register,
     handleSubmit,
@@ -33,9 +38,14 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
-    showToast('Successfully logged in!', 'success');
+  const onSubmit = async (data: FormValues) => {
+    const { success, message } = await AuthService.loginUser(data);
+    if (!success) {
+      return showToast(message, 'error');
+    }
+
+    showToast(message, 'success');
+    naivgate(ROUTES.HOME);
   };
 
   const handleNavigation = (path: string) => {
@@ -71,7 +81,7 @@ const Login = () => {
           error={!!errors.password}
           helperText={errors.password?.message}
         />
-        <MorenButton type="submit" variant="contained">
+        <MorenButton type="submit" variant="contained" disabled={loading}>
           Login
         </MorenButton>
       </Box>
