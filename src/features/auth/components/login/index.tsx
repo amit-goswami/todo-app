@@ -11,6 +11,7 @@ import MorenButton from '../../../../components/button';
 import ModernInput from '../../../../components/input';
 import MorenCard from '../../../../components/card.tsx';
 import AuthService from '../../auth.service.ts';
+import CustomLoader from '../../../../components/loader/index.tsx';
 
 type FormValues = {
   email: string;
@@ -27,7 +28,6 @@ const schema = Yup.object({
 const Login = () => {
   const naivgate = useNavigate();
   const { showToast } = useToast();
-
   const { loading } = useSelector((state: RootState) => state.auth);
 
   const {
@@ -51,6 +51,10 @@ const Login = () => {
   const handleNavigation = (path: string) => {
     naivgate(path);
   };
+
+  if (loading) {
+    return <CustomLoader />;
+  }
 
   return (
     <MorenCard

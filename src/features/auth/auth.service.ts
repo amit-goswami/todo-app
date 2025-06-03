@@ -28,14 +28,22 @@ const loginUser = async (payload: ILoginPayload): Promise<ILoginResponse> => {
 
       // Store token in localStorage or cookies if needed
       setLocalStorageItem(LOCAL_STORAGE_KEYS.TOKEN, token);
+
+      return {
+        user,
+        token,
+        allowedRoutes,
+        success: true,
+        message: 'Login successful',
+      };
     }
 
     return {
       user,
       token,
       allowedRoutes,
-      success: true,
-      message: 'Login successful',
+      success: false,
+      message: 'Login failed: Invalid response data',
     };
   } catch (error: unknown) {
     store.dispatch(loginFailure());

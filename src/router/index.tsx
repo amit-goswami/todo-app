@@ -6,17 +6,10 @@ import { useSelector } from 'react-redux';
 import ProtectedBoundary from '../templates/protected-boundary';
 import NonProtectedBoundary from '../templates/non-protected-boundary';
 
-// Components
-import CustomLoader from '../components/loader';
-
 const AppRouter = () => {
-  const { isAuthenticated, loading, allowedRoutes } = useSelector(
+  const { isAuthenticated, allowedRoutes } = useSelector(
     (state: RootState) => state.auth
   );
-
-  if (loading) {
-    return <CustomLoader />;
-  }
 
   return (
     <React.Fragment>
