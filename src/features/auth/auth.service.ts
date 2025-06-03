@@ -116,9 +116,37 @@ const loginUser = async (payload: ILoginPayload): Promise<ILoginResponse> => {
   }
 };
 
+const forgotPassword = async (payload: { email: string }) => {
+  store.dispatch(loginStart()); // Optional: create a separate forgotPasswordStart
+
+  try {
+    const response = await HttpService.post<{ message: string }>(
+      '/auth/forgot-password',
+      payload
+    );
+
+    return {
+      success: true,
+      message: response.data.message || 'Password reset email sent',
+    };
+  } catch (error: unknown) {
+    store.dispatch(loginFailure()); // Optional: use forgotPasswordFailure
+
+    const message =
+      get(error, 'response.data.message') ||
+      'An unexpected error occurred during password reset';
+
+    return {
+      success: false,
+      message,
+    };
+  }
+};
+
 const AuthService = {
   loginUser,
   registerUser,
+  forgotPassword,
 };
 
 export default AuthService;
