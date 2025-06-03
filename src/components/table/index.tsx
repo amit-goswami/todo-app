@@ -38,6 +38,7 @@ export function GenericTable<T extends { id: string | number }>({
       onRowClick={params => onRowClick?.(params.row)}
       sx={{
         width: '100%',
+        height: '100%',
         padding: 2,
         border: 'none',
         boxShadow: 1,

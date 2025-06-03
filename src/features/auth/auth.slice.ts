@@ -4,7 +4,7 @@ import type { IAuthState, IUser } from './auth.interface';
 const initialState: IAuthState = {
   user: null,
   token: null,
-  isAuthenticated: false,
+  isAuthenticated: true,
   loading: false,
   allowedRoutes: null,
 };
