@@ -1,14 +1,47 @@
 import HttpService from '../../services/HttpService';
 import { get } from 'lodash';
 import { store } from '../../store';
-import { LOCAL_STORAGE_KEYS } from '../../utils/constants';
-import { setLocalStorageItem } from '../../utils/functions';
-import type {
-  ILoginPayload,
-  ILoginResponse,
-  IRegisterPayload,
+import { isDevModeActive } from '../../utils/functions';
+import {
+  UserRole,
+  type ILoginPayload,
+  type ILoginResponse,
+  type IRegisterPayload,
 } from './auth.interface';
 import { loginFailure, loginStart, loginSuccess } from './auth.slice';
+import { DEV_MODE_ROUTES } from '../../templates/protected-boundary/mapping';
+
+// Simulate a successful login in development mode
+const simulateDevLogin = async (
+  payload: ILoginPayload
+): Promise<ILoginResponse> => {
+  const { email } = payload;
+  const user = {
+    id: 'admin-dev-id-12345',
+    name: 'Admin Dev',
+    email: email,
+    role: UserRole['SUPER_ADMIN'],
+  };
+
+  const token = 'dev-token-12345';
+  const allowedRoutes = DEV_MODE_ROUTES;
+
+  const successPayload = {
+    user,
+    token,
+    allowedRoutes,
+  };
+
+  store.dispatch(loginSuccess(successPayload));
+
+  return {
+    user,
+    token,
+    allowedRoutes,
+    success: true,
+    message: 'Development login successful',
+  };
+};
 
 const registerUser = async (
   payload: IRegisterPayload
@@ -26,8 +59,6 @@ const registerUser = async (
     if (token && user && allowedRoutes) {
       const successPayload = { user, token, allowedRoutes };
       store.dispatch(loginSuccess(successPayload)); // or registerSuccess
-
-      setLocalStorageItem(LOCAL_STORAGE_KEYS.TOKEN, token);
 
       return {
         user,
@@ -65,6 +96,12 @@ const registerUser = async (
 const loginUser = async (payload: ILoginPayload): Promise<ILoginResponse> => {
   store.dispatch(loginStart());
 
+  const { isDev } = isDevModeActive(payload);
+
+  if (isDev) {
+    return simulateDevLogin(payload);
+  }
+
   try {
     const response = await HttpService.post<ILoginResponse>(
       '/auth/login',
@@ -81,9 +118,6 @@ const loginUser = async (payload: ILoginPayload): Promise<ILoginResponse> => {
       };
 
       store.dispatch(loginSuccess(successPayload));
-
-      // Store token in localStorage or cookies if needed
-      setLocalStorageItem(LOCAL_STORAGE_KEYS.TOKEN, token);
 
       return {
         user,

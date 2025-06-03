@@ -1,6 +1,10 @@
 import type { ComponentKey } from '../../templates/protected-boundary/mapping';
 
-export type UserRole = 'user' | 'admin' | 'superadmin';
+export const UserRole = {
+  USER: 'user',
+  ADMIN: 'admin',
+  SUPER_ADMIN: 'superadmin',
+};
 
 export type LayoutType = 'MainLayout' | 'AuthLayout';
 
@@ -8,7 +12,7 @@ export interface IUser {
   id: string;
   name: string;
   email: string;
-  role: UserRole;
+  role: (typeof UserRole)[keyof typeof UserRole];
 }
 
 export const ROUTES = {

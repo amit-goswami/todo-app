@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { LOCAL_STORAGE_KEYS } from '../utils/constants';
-import { getLocalStorageItem, purgeLocalStorage } from '../utils/functions';
-import { persistor } from '../store';
+import { purgeLocalStorage } from '../utils/functions';
+import { persistor, store } from '../store';
 import { get } from 'lodash';
 import { ROUTES } from '../features/auth/auth.interface';
 
@@ -15,7 +14,8 @@ const _axios = axios.create({
 
 _axios.interceptors.request.use(
   config => {
-    const token = getLocalStorageItem(LOCAL_STORAGE_KEYS.TOKEN);
+    const state = store.getState();
+    const token = get(state, ['auth', 'token'], null);
 
     if (token) {
       config.headers['Authorization'] = `Token ${token}`;

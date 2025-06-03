@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { IAuthState, IUser } from './auth.interface';
+import type { IAuthState, IUser, IUserRoute } from './auth.interface';
 
 const initialState: IAuthState = {
   user: null,
@@ -18,21 +18,31 @@ const authSlice = createSlice({
     },
     loginSuccess: (
       state,
-      action: PayloadAction<{ user: IUser; token: string }>
+      action: PayloadAction<{
+        user: IUser;
+        token: string;
+        allowedRoutes: IUserRoute[];
+      }>
     ) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isAuthenticated = true;
       state.loading = false;
+      state.allowedRoutes = action.payload.allowedRoutes;
     },
     loginFailure: state => {
       state.loading = false;
+      state.isAuthenticated = false;
+      state.user = null;
+      state.token = null;
+      state.allowedRoutes = null;
     },
     logout: state => {
       state.user = null;
       state.token = null;
       state.isAuthenticated = false;
       state.loading = false;
+      state.allowedRoutes = null;
     },
     updateUser: (state, action: PayloadAction<Partial<IUser>>) => {
       if (state.user) {

@@ -1,4 +1,7 @@
-import { LOCAL_STORAGE_KEYS } from './constants';
+import type { ILoginPayload } from '../features/auth/auth.interface';
+import { ADMIN_CREDENTIALS, LOCAL_STORAGE_KEYS } from './constants';
+
+const DEV_MODE = import.meta.env.VITE_DEV_MODE;
 
 const getCurrentYear = (): number => {
   return new Date().getFullYear();
@@ -36,7 +39,25 @@ const setLocalStorageItem = (
   localStorage.setItem(key, value);
 };
 
+const isDevModeActive = (payload: ILoginPayload) => {
+  const { email, password } = payload;
+  if (
+    email === ADMIN_CREDENTIALS.email &&
+    password === ADMIN_CREDENTIALS.password &&
+    DEV_MODE
+  ) {
+    return {
+      isDev: true,
+    };
+  }
+
+  return {
+    isDev: false,
+  };
+};
+
 export {
+  isDevModeActive,
   getCurrentYear,
   getCurrentMonth,
   getCurrentDay,

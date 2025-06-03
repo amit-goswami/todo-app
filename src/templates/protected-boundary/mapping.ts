@@ -1,4 +1,4 @@
-import { ROUTES } from '../../features/auth/auth.interface';
+import { ROUTES, type IUserRoute } from '../../features/auth/auth.interface';
 
 // Public Pages
 import LoginPage from '../../pages/login';
@@ -65,10 +65,16 @@ export const PUBLIC_ROUTES = [
 
 // For protected routes, we can define them here
 // This is just a placeholder for now, as the actual routes will be dynamically rendered based on the backend configuration
-// const PROTECTED_ROUTES: IUserRoute[] = [
-//   {
-//     path: ROUTES.HOME,
-//     layout: 'MainLayout',
-//     component: 'HomePage',
-//   },
-// ];
+// These routes are for Development purposes only
+export const DEV_MODE_ROUTES: IUserRoute[] = [
+  {
+    path: ROUTES.HOME,
+    layout: 'MainLayout',
+    component: 'HomePage',
+  },
+  {
+    path: ROUTES.NOT_FOUND,
+    layout: 'AuthLayout',
+    component: 'PageNotFound',
+  },
+];
