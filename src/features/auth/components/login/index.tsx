@@ -38,6 +38,10 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
+  const handleNavigation = (path: string) => {
+    naivgate(path);
+  };
+
   const onSubmit = async (data: FormValues) => {
     const { success, message } = await AuthService.loginUser(data);
     if (!success) {
@@ -45,11 +49,7 @@ const Login = () => {
     }
 
     showToast(message, 'success');
-    naivgate(ROUTES.HOME);
-  };
-
-  const handleNavigation = (path: string) => {
-    naivgate(path);
+    handleNavigation(ROUTES.HOME);
   };
 
   if (loading) {

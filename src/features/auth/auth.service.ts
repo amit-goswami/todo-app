@@ -3,8 +3,64 @@ import { get } from 'lodash';
 import { store } from '../../store';
 import { LOCAL_STORAGE_KEYS } from '../../utils/constants';
 import { setLocalStorageItem } from '../../utils/functions';
-import type { ILoginPayload, ILoginResponse } from './auth.interface';
+import type {
+  ILoginPayload,
+  ILoginResponse,
+  IRegisterPayload,
+} from './auth.interface';
 import { loginFailure, loginStart, loginSuccess } from './auth.slice';
+
+const registerUser = async (
+  payload: IRegisterPayload
+): Promise<ILoginResponse> => {
+  store.dispatch(loginStart()); // optional: create separate registerStart()
+
+  try {
+    const response = await HttpService.post<ILoginResponse>(
+      '/auth/register',
+      payload
+    );
+
+    const { token, user, allowedRoutes } = response.data;
+
+    if (token && user && allowedRoutes) {
+      const successPayload = { user, token, allowedRoutes };
+      store.dispatch(loginSuccess(successPayload)); // or registerSuccess
+
+      setLocalStorageItem(LOCAL_STORAGE_KEYS.TOKEN, token);
+
+      return {
+        user,
+        token,
+        allowedRoutes,
+        success: true,
+        message: 'Registration successful',
+      };
+    }
+
+    return {
+      user: null,
+      token: null,
+      allowedRoutes: null,
+      success: false,
+      message: 'Registration failed: Invalid response data',
+    };
+  } catch (error: unknown) {
+    store.dispatch(loginFailure()); // or registerFailure
+
+    const message =
+      get(error, 'response.data.message') ||
+      'An unexpected error occurred during registration';
+
+    return {
+      user: null,
+      token: null,
+      allowedRoutes: null,
+      success: false,
+      message,
+    };
+  }
+};
 
 const loginUser = async (payload: ILoginPayload): Promise<ILoginResponse> => {
   store.dispatch(loginStart());
@@ -62,6 +118,7 @@ const loginUser = async (payload: ILoginPayload): Promise<ILoginResponse> => {
 
 const AuthService = {
   loginUser,
+  registerUser,
 };
 
 export default AuthService;

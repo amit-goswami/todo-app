@@ -57,3 +57,11 @@ export interface ILoginResponse {
   success: boolean;
   message: string;
 }
+
+// Register payload and response types
+export interface IRegisterPayload {
+  name: string;
+  email: string;
+  password: string;
+  mobile: string;
+}
