@@ -18,7 +18,6 @@ export interface IUser {
 export const ROUTES = {
   // Public routes
   HOME: '/',
-  ABOUT: '/about',
 
   // Authenticated routes
   LOGIN: '/login',

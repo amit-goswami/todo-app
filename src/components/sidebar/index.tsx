@@ -12,7 +12,6 @@ import {
 } from '@mui/material';
 import { useSidebarContext } from './provider';
 import { DRAWER_WIDTH, MINI_DRAWER_WIDTH } from '../../utils/constants';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import FloatingPositionedBox from '../box';
 import LanguageMode from '../../i18n/LanguageMode';
@@ -58,7 +57,7 @@ const Sidebar = () => {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <MailIcon />
                 </ListItemIcon>
                 {drawerOpen && <ListItemText primary={text} />}
               </ListItemButton>
@@ -85,7 +84,7 @@ const Sidebar = () => {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <MailIcon />
                 </ListItemIcon>
                 {drawerOpen && <ListItemText primary={text} />}
               </ListItemButton>

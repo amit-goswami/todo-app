@@ -14,12 +14,14 @@ import {
 import { useSidebarContext } from '../sidebar/provider';
 import MenuIcon from '@mui/icons-material/Menu';
 import withAuthGuard from '../../middlewares/withAuthGuard';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-const navItems = ['Home', 'Features', 'Pricing', 'Contact'];
+const navItems = ['About Us', 'Contact', 'Help'];
 
 const Header = () => {
   const theme = useTheme();
-  const { toggleDrawer } = useSidebarContext();
+  const { drawerOpen, toggleDrawer } = useSidebarContext();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -36,9 +38,16 @@ const Header = () => {
       <Toolbar>
         <Typography
           variant="h6"
-          sx={{ flexGrow: 1, cursor: 'pointer' }}
+          sx={{
+            flexGrow: 1,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1,
+          }}
           onClick={toggleDrawer}
         >
+          {drawerOpen ? <MenuOpenIcon /> : <MenuIcon />}
           IRB
         </Typography>
 
@@ -51,7 +60,7 @@ const Header = () => {
               aria-label="menu"
               onClick={handleMenuOpen}
             >
-              <MenuIcon />
+              <MoreVertIcon />
             </IconButton>
             <Menu
               anchorEl={anchorEl}
