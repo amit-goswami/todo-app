@@ -71,10 +71,20 @@ export const DEV_MODE_ROUTES: IUserRoute[] = [
     path: ROUTES.HOME,
     layout: 'MainLayout',
     component: 'HomePage',
+    // This route will be shown in the sidebar
+    showInSidebar: true,
+    sideBarTitle: 'Home',
+    sideBarIcon: 'HomeIcon',
+    isAChildOf: null,
   },
   {
     path: ROUTES.NOT_FOUND,
     layout: 'AuthLayout',
     component: 'PageNotFound',
+    // This route will not be shown in the sidebar
+    showInSidebar: true,
+    sideBarTitle: 'Not Found',
+    sideBarIcon: 'ErrorIcon',
+    isAChildOf: ROUTES.HOME,
   },
 ];

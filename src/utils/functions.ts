@@ -1,3 +1,4 @@
+import { get } from 'lodash';
 import type {
   ILoginPayload,
   IUserRoute,
@@ -59,12 +60,31 @@ const isDevModeActive = (payload: ILoginPayload) => {
   };
 };
 
+const getNestedRoutes = (
+  path: string | null,
+  allowedRoutes: IUserRoute[] | null
+) => {
+  if (!allowedRoutes) {
+    return [];
+  }
+
+  return allowedRoutes
+    .filter(route => get(route, ['isAChildOf'], null) === path)
+    .map(route => get(route, ['path'], null));
+};
+
 const getSidebarOptions = (allowedRoutes: IUserRoute[] | null) => {
   if (!allowedRoutes) {
     return [];
   }
 
-  return [];
+  return allowedRoutes
+    .filter(route => route.showInSidebar)
+    .map(route => ({
+      title: get(route, ['sideBarTitle']),
+      icon: get(route, ['sideBarIcon']),
+      nestedRoutes: getNestedRoutes(get(route, ['path'], null), allowedRoutes),
+    }));
 };
 
 export {

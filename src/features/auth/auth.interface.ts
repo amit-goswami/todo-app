@@ -37,6 +37,11 @@ export interface IUserRoute {
   path: ROUTES;
   layout: LayoutType;
   component: ComponentKey;
+  // additional properties can be added as needed
+  showInSidebar: boolean;
+  sideBarIcon: string | null;
+  sideBarTitle: string | null;
+  isAChildOf: ROUTES | null;
 }
 
 export interface IAuthState {

@@ -86,9 +86,9 @@ const Sidebar = () => {
     >
       <Toolbar />
       <List>
-        {getSidebarOptions(allowedRoutes).map((text, index) => (
+        {getSidebarOptions(allowedRoutes).map((option, index) => (
           <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-            <Tooltip title={!drawerOpen ? text : ''} placement="right">
+            <Tooltip title={!drawerOpen ? option.title : ''} placement="right">
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -105,7 +105,7 @@ const Sidebar = () => {
                 >
                   <MailIcon />
                 </ListItemIcon>
-                {drawerOpen && <ListItemText primary={text} />}
+                {drawerOpen && <ListItemText primary={option.title} />}
               </ListItemButton>
             </Tooltip>
           </ListItem>
