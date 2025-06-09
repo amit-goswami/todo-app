@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useThemeContext, type ThemeName } from './ThemeContext';
 import {
   IconButton,
@@ -21,19 +20,19 @@ const styles = {
 };
 
 export default function ColorMode() {
-  const { themeName, setThemeName } = useThemeContext();
-  const [isOpen, setIsOpen] = useState(false);
+  const { themeName, isThemeModalOpen, setIsThemeModalOpen, setThemeName } =
+    useThemeContext();
 
   const handleSelect = (value: ThemeName) => {
     setThemeName(value);
-    setIsOpen(false);
+    setIsThemeModalOpen(false);
   };
 
   return (
     <>
       <Tooltip title="Change Theme">
         <IconButton
-          onClick={() => setIsOpen(true)}
+          onClick={() => setIsThemeModalOpen(true)}
           aria-label="change theme"
           color="inherit"
         >
@@ -42,8 +41,8 @@ export default function ColorMode() {
       </Tooltip>
 
       <GenericModal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
+        isOpen={isThemeModalOpen}
+        onClose={() => setIsThemeModalOpen(false)}
         title="Select Theme"
         hideSubmitButton
         cancelButtonText="Close"

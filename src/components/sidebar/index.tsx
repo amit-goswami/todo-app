@@ -10,17 +10,63 @@ import {
   Toolbar,
   Tooltip,
 } from '@mui/material';
+import type { RootState } from '../../store';
 import { useSidebarContext } from './provider';
 import { DRAWER_WIDTH, MINI_DRAWER_WIDTH } from '../../utils/constants';
+import { useDispatch } from 'react-redux';
+import { openLanguageModal } from '../../i18n/language.slice';
+import { openLogoutModal } from '../../features/auth/components/logout/logout.slice';
+import { useThemeContext } from '../../providers/theme-provider/ThemeContext';
+import { useSelector } from 'react-redux';
+import { getSidebarOptions } from '../../utils/functions';
 import MailIcon from '@mui/icons-material/Mail';
-import FloatingPositionedBox from '../box';
+import withAuthGuard from '../../middlewares/withAuthGuard';
+import TranslateIcon from '@mui/icons-material/Translate';
+import ColorLensIcon from '@mui/icons-material/ColorLens';
+import LogoutIcon from '@mui/icons-material/Logout';
 import LanguageMode from '../../i18n/LanguageMode';
 import ColorMode from '../../providers/theme-provider/ColorMode';
 import LogoutFeature from '../../features/auth/components/logout';
-import withAuthGuard from '../../middlewares/withAuthGuard';
+
+const sidebarOptions = (
+  handleOpenLanguageModal: () => void,
+  handleLogoutModal: () => void,
+  handleThemeModal: () => void
+) => [
+  {
+    title: 'Language',
+    icon: <TranslateIcon />,
+    action: handleOpenLanguageModal,
+  },
+  {
+    title: 'Color Mode',
+    icon: <ColorLensIcon />,
+    action: handleThemeModal,
+  },
+  {
+    title: 'Logout',
+    icon: <LogoutIcon />,
+    action: handleLogoutModal,
+  },
+];
 
 const Sidebar = () => {
   const { drawerOpen } = useSidebarContext();
+  const { setIsThemeModalOpen } = useThemeContext();
+  const { allowedRoutes } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch();
+
+  const handleOpenLanguageModal = () => {
+    dispatch(openLanguageModal());
+  };
+
+  const handleLogoutModal = () => {
+    dispatch(openLogoutModal());
+  };
+
+  const handleThemeModal = () => {
+    setIsThemeModalOpen(true);
+  };
 
   return (
     <Drawer
@@ -40,8 +86,8 @@ const Sidebar = () => {
     >
       <Toolbar />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+        {getSidebarOptions(allowedRoutes).map((text, index) => (
+          <ListItem key={index} disablePadding sx={{ display: 'block' }}>
             <Tooltip title={!drawerOpen ? text : ''} placement="right">
               <ListItemButton
                 sx={{
@@ -65,17 +111,22 @@ const Sidebar = () => {
           </ListItem>
         ))}
       </List>
-      <Divider />
+      {getSidebarOptions(allowedRoutes).length > 0 && <Divider />}
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-            <Tooltip title={!drawerOpen ? text : ''} placement="right">
+        {sidebarOptions(
+          handleOpenLanguageModal,
+          handleLogoutModal,
+          handleThemeModal
+        ).map((option, index) => (
+          <ListItem key={index} disablePadding sx={{ display: 'block' }}>
+            <Tooltip title={!drawerOpen ? option.title : ''} placement="right">
               <ListItemButton
                 sx={{
                   minHeight: 48,
                   justifyContent: drawerOpen ? 'initial' : 'center',
                   px: 2.5,
                 }}
+                onClick={() => option.action()}
               >
                 <ListItemIcon
                   sx={{
@@ -84,30 +135,24 @@ const Sidebar = () => {
                     justifyContent: 'center',
                   }}
                 >
-                  <MailIcon />
+                  {option.icon}
                 </ListItemIcon>
-                {drawerOpen && <ListItemText primary={text} />}
+                {drawerOpen && <ListItemText primary={option.title} />}
               </ListItemButton>
             </Tooltip>
           </ListItem>
         ))}
       </List>
 
-      <FloatingPositionedBox position="bottom-left">
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: drawerOpen ? 'row' : 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 1,
-          }}
-        >
-          <LanguageMode />
-          <ColorMode />
-          <LogoutFeature />
-        </Box>
-      </FloatingPositionedBox>
+      <Box
+        sx={{
+          display: 'none',
+        }}
+      >
+        <LanguageMode />
+        <ColorMode />
+        <LogoutFeature />
+      </Box>
     </Drawer>
   );
 };

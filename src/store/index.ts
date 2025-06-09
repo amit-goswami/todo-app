@@ -1,5 +1,9 @@
 import storage from 'redux-persist/lib/storage';
 import authReducer from '../features/auth/auth.slice';
+import logoutReducer, {
+  type ILogoutState,
+} from '../features/auth/components/logout/logout.slice';
+import languageReducer, { type ILanguageState } from '../i18n/language.slice';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import { encryptTransform } from 'redux-persist-transform-encrypt';
@@ -28,10 +32,14 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  logout: logoutReducer,
+  language: languageReducer,
 });
 
 interface rootReducer {
   auth: IAuthState;
+  logout: ILogoutState;
+  language: ILanguageState;
 }
 
 const persistedReducer = persistReducer(

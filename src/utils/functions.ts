@@ -1,4 +1,7 @@
-import type { ILoginPayload } from '../features/auth/auth.interface';
+import type {
+  ILoginPayload,
+  IUserRoute,
+} from '../features/auth/auth.interface';
 import { ADMIN_CREDENTIALS, LOCAL_STORAGE_KEYS } from './constants';
 
 const DEV_MODE = import.meta.env.VITE_DEV_MODE;
@@ -56,6 +59,14 @@ const isDevModeActive = (payload: ILoginPayload) => {
   };
 };
 
+const getSidebarOptions = (allowedRoutes: IUserRoute[] | null) => {
+  if (!allowedRoutes) {
+    return [];
+  }
+
+  return [];
+};
+
 export {
   isDevModeActive,
   getCurrentYear,
@@ -65,4 +76,5 @@ export {
   purgeLocalStorage,
   getLocalStorageItem,
   setLocalStorageItem,
+  getSidebarOptions,
 };

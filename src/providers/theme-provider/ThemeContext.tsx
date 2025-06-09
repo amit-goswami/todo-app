@@ -39,7 +39,9 @@ const themeMap = {
 
 interface ThemeContextProps {
   themeName: ThemeName;
+  isThemeModalOpen: boolean;
   setThemeName: (name: ThemeName) => void;
+  setIsThemeModalOpen: (isOpen: boolean) => void;
 }
 
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
@@ -56,6 +58,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [themeName, setThemeNameState] = useState<ThemeName>(
     cookies.theme || 'light'
   );
+  const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
 
   const setThemeName = (name: ThemeName) => {
     setThemeNameState(name);
@@ -70,7 +73,9 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   }, [cookies.theme]);
 
   return (
-    <ThemeContext.Provider value={{ themeName, setThemeName }}>
+    <ThemeContext.Provider
+      value={{ themeName, isThemeModalOpen, setIsThemeModalOpen, setThemeName }}
+    >
       <MUIThemeProvider theme={themeMap[themeName]}>
         <CssBaseline />
         {children}

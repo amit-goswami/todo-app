@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   IconButton,
   Tooltip,
@@ -8,8 +7,12 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
-import TranslateIcon from '@mui/icons-material/Translate';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../store';
+import { useDispatch } from 'react-redux';
+import { closeLanguageModal, openLanguageModal } from './language.slice';
+import TranslateIcon from '@mui/icons-material/Translate';
 import GenericModal from '../components/modal';
 
 const languages: Record<string, { label: string; flag: string }> = {
@@ -46,20 +49,31 @@ const styles = {
 };
 
 export default function LanguageMode() {
+  const dispatch = useDispatch();
   const { i18n } = useTranslation();
   const currentLang = i18n.language;
-  const [isOpen, setIsOpen] = useState(false);
+  const { isLanguageModalOpen } = useSelector(
+    (state: RootState) => state.language
+  );
 
   const handleSelect = (langCode: string) => {
     i18n.changeLanguage(langCode);
-    setIsOpen(false);
+    dispatch(closeLanguageModal());
+  };
+
+  const handleClose = () => {
+    dispatch(closeLanguageModal());
+  };
+
+  const handleOpen = () => {
+    dispatch(openLanguageModal());
   };
 
   return (
     <>
       <Tooltip title="Change Language">
         <IconButton
-          onClick={() => setIsOpen(true)}
+          onClick={() => handleOpen()}
           aria-label="change language"
           color="inherit"
         >
@@ -68,8 +82,8 @@ export default function LanguageMode() {
       </Tooltip>
 
       <GenericModal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
+        isOpen={isLanguageModalOpen}
+        onClose={() => handleClose()}
         title="Select Language"
         hideSubmitButton
         cancelButtonText="Close"
