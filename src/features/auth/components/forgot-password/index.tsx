@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ROUTES } from '../../auth.interface.ts';
 import type { RootState } from '../../../../store/index.ts';
-import MorenCard from '../../../../components/card.tsx';
+import MorenCard from '../../../../components/card/index.tsx';
 import ModernInput from '../../../../components/input/index.tsx';
 import MorenButton from '../../../../components/button/index.tsx';
 import CustomLoader from '../../../../components/loader/index.tsx';

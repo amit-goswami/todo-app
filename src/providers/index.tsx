@@ -8,6 +8,7 @@ import { TanstackProvider } from './tanstack-provider';
 import { CookiesProvider } from 'react-cookie';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastProvider } from './toast-provider';
+import { ROUTES } from '../features/auth/auth.interface';
 
 interface IAppProviderProps {
   children: ReactNode;
@@ -15,7 +16,7 @@ interface IAppProviderProps {
 
 const AppProvider: React.FC<IAppProviderProps> = ({ children }) => {
   return (
-    <CookiesProvider defaultSetOptions={{ path: '/' }}>
+    <CookiesProvider defaultSetOptions={{ path: ROUTES.HOME }}>
       <ErrorBoundary>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>

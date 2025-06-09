@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { ROUTES } from '../../auth.interface.ts';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../../store/index.ts';
-import MorenCard from '../../../../components/card.tsx/index.tsx';
+import MorenCard from '../../../../components/card/index.tsx';
 import ModernInput from '../../../../components/input/index.tsx';
 import MorenButton from '../../../../components/button/index.tsx';
 import AuthService from '../../auth.service.ts';
@@ -28,7 +28,7 @@ const schema = Yup.object({
     .min(6, 'Password must be at least 6 characters')
     .required('Password is required'),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .oneOf([Yup.ref('password')], 'Passwords must match')
     .required('Confirm Password is required'),
   mobile: Yup.string()
     .matches(/^\d{10}$/, 'Mobile number must be 10 digits')

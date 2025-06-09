@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { useToast } from '../../../../providers/toast-provider';
 import MorenButton from '../../../../components/button';
 import ModernInput from '../../../../components/input';
-import MorenCard from '../../../../components/card.tsx';
+import MorenCard from '../../../../components/card/index.tsx';
 import AuthService from '../../auth.service.ts';
 import CustomLoader from '../../../../components/loader/index.tsx';
 
