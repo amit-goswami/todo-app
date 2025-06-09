@@ -81,6 +81,7 @@ const getSidebarOptions = (allowedRoutes: IUserRoute[] | null) => {
   return allowedRoutes
     .filter(route => route.showInSidebar)
     .map(route => ({
+      path: get(route, ['path'], null),
       title: get(route, ['sideBarTitle']),
       icon: get(route, ['sideBarIcon']),
       nestedRoutes: getNestedRoutes(get(route, ['path'], null), allowedRoutes),
