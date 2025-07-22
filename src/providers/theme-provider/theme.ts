@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
-export const lightTheme = createTheme({
+const lightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: { main: '#1976d2' },
@@ -8,7 +8,7 @@ export const lightTheme = createTheme({
   },
 });
 
-export const darkTheme = createTheme({
+const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: { main: '#90caf9' },
@@ -16,7 +16,7 @@ export const darkTheme = createTheme({
   },
 });
 
-export const greenTheme = createTheme({
+const greenTheme = createTheme({
   palette: {
     mode: 'light',
     primary: { main: '#2e7d32' },
@@ -24,7 +24,7 @@ export const greenTheme = createTheme({
   },
 });
 
-export const redTheme = createTheme({
+const redTheme = createTheme({
   palette: {
     mode: 'light',
     primary: { main: '#d32f2f' },
@@ -32,7 +32,7 @@ export const redTheme = createTheme({
   },
 });
 
-export const blueTheme = createTheme({
+const blueTheme = createTheme({
   palette: {
     mode: 'light',
     primary: { main: '#1976d2' },
@@ -40,7 +40,7 @@ export const blueTheme = createTheme({
   },
 });
 
-export const yellowTheme = createTheme({
+const yellowTheme = createTheme({
   palette: {
     mode: 'light',
     primary: { main: '#fbc02d' },
@@ -48,10 +48,20 @@ export const yellowTheme = createTheme({
   },
 });
 
-export const violetTheme = createTheme({
+const violetTheme = createTheme({
   palette: {
     mode: 'light',
     primary: { main: '#8e24aa' },
     background: { default: '#f3e5f5' },
   },
 });
+
+export {
+  lightTheme,
+  darkTheme,
+  greenTheme,
+  redTheme,
+  blueTheme,
+  yellowTheme,
+  violetTheme,
+};

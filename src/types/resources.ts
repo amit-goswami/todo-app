@@ -1,7 +1,3 @@
-import translation from '../i18n/en/translation.json';
-
-const resources = {
-  translation,
-} as const;
+const resources = {} as const;
 
 export default resources;

@@ -9,6 +9,50 @@ import {
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import GenericModal from '../../components/modal';
 
+interface IListItem {
+  label: string;
+  value: ThemeName;
+  emoji: string;
+}
+
+const LIST_ITEM: IListItem[] = [
+  {
+    label: 'Light',
+    value: 'light',
+    emoji: '🌞',
+  },
+  {
+    label: 'Dark',
+    value: 'dark',
+    emoji: '🌙',
+  },
+  {
+    label: 'Green',
+    value: 'green',
+    emoji: '🟢',
+  },
+  {
+    label: 'Red',
+    value: 'red',
+    emoji: '🔴',
+  },
+  {
+    label: 'Blue',
+    value: 'blue',
+    emoji: '🔵',
+  },
+  {
+    label: 'Yellow',
+    value: 'yellow',
+    emoji: '🟡',
+  },
+  {
+    label: 'Violet',
+    value: 'violet',
+    emoji: '🟣',
+  },
+];
+
 const styles = {
   listItemButton: {
     borderRadius: '8px',
@@ -52,61 +96,23 @@ export default function ColorMode() {
             minHeight: '400px',
           }}
         >
-          <ListItemButton
-            selected={themeName === 'light'}
-            onClick={() => handleSelect('light')}
-            sx={styles.listItemButton}
-          >
-            <ListItemText primary="🌞 Light" />
-          </ListItemButton>
-
-          <ListItemButton
-            selected={themeName === 'dark'}
-            onClick={() => handleSelect('dark')}
-            sx={styles.listItemButton}
-          >
-            <ListItemText primary="🌙 Dark" />
-          </ListItemButton>
-
-          <ListItemButton
-            selected={themeName === 'green'}
-            onClick={() => handleSelect('green')}
-            sx={styles.listItemButton}
-          >
-            <ListItemText primary="🟢 Green" />
-          </ListItemButton>
-
-          <ListItemButton
-            selected={themeName === 'red'}
-            onClick={() => handleSelect('red')}
-            sx={styles.listItemButton}
-          >
-            <ListItemText primary="🔴 Red" />
-          </ListItemButton>
-
-          <ListItemButton
-            selected={themeName === 'blue'}
-            onClick={() => handleSelect('blue')}
-            sx={styles.listItemButton}
-          >
-            <ListItemText primary="🔵 Blue" />
-          </ListItemButton>
-
-          <ListItemButton
-            selected={themeName === 'yellow'}
-            onClick={() => handleSelect('yellow')}
-            sx={styles.listItemButton}
-          >
-            <ListItemText primary="🟡 Yellow" />
-          </ListItemButton>
-
-          <ListItemButton
-            selected={themeName === 'violet'}
-            onClick={() => handleSelect('violet')}
-            sx={styles.listItemButton}
-          >
-            <ListItemText primary="🟣 Violet" />
-          </ListItemButton>
+          {LIST_ITEM.map(item => {
+            const { label, value } = item;
+            return (
+              <ListItemButton
+                key={value}
+                onClick={() => handleSelect(value)}
+                sx={{
+                  ...styles.listItemButton,
+                  backgroundColor:
+                    themeName === value ? 'rgba(0, 0, 0, 0.08)' : 'transparent',
+                }}
+              >
+                <ListItemText primary={label} />
+                <span style={{ marginLeft: 'auto' }}>{item.emoji}</span>
+              </ListItemButton>
+            );
+          })}
         </List>
       </GenericModal>
     </>

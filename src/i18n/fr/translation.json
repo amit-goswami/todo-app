@@ -1,9 +1,0 @@
-{
-  "title": "Bienvenue {{name}}, dans react utilisant react-i18next entièrement typé",
-  "description": {
-    "part1": "Ceci est un exemple simple.",
-    "part2": "😉"
-  },
-  "userMessagesUnread_one": "Vous avez {{count}} message non lu.",
-  "userMessagesUnread_other": "Vous avez {{count}} messages non lus."
-}
